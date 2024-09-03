@@ -53,11 +53,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function navigateTo(url) {
-        if (!url.startsWith('http')) {
-            url = `http://${url}`;
+        if (!url.startsWith('https')) {
+            url = `https://${url}`;
         }
         if (currentTab) {
-            currentTab.iframe.src = url;
+            currentTab.iframe.src = __uv$config.prefix + __uv$config.encodeUrl(url);
             addressBar.value = url;
         }
     }
