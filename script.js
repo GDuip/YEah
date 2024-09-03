@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const backButton = document.getElementById('back-button');
     const forwardButton = document.getElementById('forward-button');
     const reloadButton = document.getElementById('reload-button');
