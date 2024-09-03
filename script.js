@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let tabs = [];
     let currentTab = null;
 
-    function createTab(url = __uv$config.prefix + __uv$config.encodeUrl('example.com')) {
+    function createTab(url = __uv$config.prefix + __uv$config.encodeUrl('https://example.com')) {
         const tabId = `tab-${tabs.length + 1}`;
 
         // Create tab button
