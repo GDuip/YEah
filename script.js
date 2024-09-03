@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     let tabs = [];
     let currentTab = null;
 
-    function createTab(url = __uv$config.prefix + __uv$config.encodeUrl('https://example.com')) {
+    function createTab(url = 'https://example.com') {
+        const proxiedUrl = __uv$config.prefix + __uv$config.encodeUrl(url)
         const tabId = `tab-${tabs.length + 1}`;
 
         // Create tab button
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Create iframe
         const iframe = document.createElement('iframe');
-        iframe.src = url;
+        iframe.src = proxiedUrl;
         iframe.dataset.tab = tabId;
 
         // Add to tabs bar and tabs content
