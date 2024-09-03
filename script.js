@@ -47,6 +47,7 @@ function setCurrentTab(tabId) {
             tab.iframe.style.display = 'block';
             currentTab = tab;
             // Corrected this line to use dataset.realsrc
+            alert(tab.iframe.dataset.realsrc);
             addressBar.value = tab.iframe.dataset.realsrc;
         } else {
             tab.button.classList.remove('active');
