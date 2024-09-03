@@ -2,7 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
 }
 
 body {
@@ -15,7 +15,7 @@ body {
 }
 
 .browser {
-    width: 90%;
+    width: 80%;
     height: 90vh;
     border-radius: 8px;
     overflow: hidden;
@@ -25,15 +25,38 @@ body {
     background-color: #fff;
 }
 
+.tabs-bar {
+    display: flex;
+    background-color: #2e2e2e;
+    padding: 5px;
+    overflow-x: auto;
+}
+
+.tab-button {
+    background-color: #4a4a4a;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    flex-shrink: 0;
+}
+
+.tab-button.active {
+    background-color: #666;
+}
+
 .nav-bar {
     display: flex;
     align-items: center;
-    background-color: #1e1e1e;
+    background-color: #2e2e2e;
     padding: 10px;
 }
 
 .nav-button {
-    background-color: #333;
+    background-color: #4a4a4a;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -44,7 +67,7 @@ body {
 }
 
 .nav-button:hover {
-    background-color: #555;
+    background-color: #666;
 }
 
 #address-bar {
@@ -56,8 +79,17 @@ body {
     font-size: 1rem;
 }
 
-#iframe-viewer {
+.tabs-content {
     flex-grow: 1;
+    position: relative;
+}
+
+iframe {
     width: 100%;
+    height: 100%;
     border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
 }
