@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     newTabButton.addEventListener('click', () => createTab());
 
+    await registerSW();
     // Initialize with one tab
     createTab();
 });
