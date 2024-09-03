@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let currentTab = null;
 
     function createTab(url = 'https://example.com') {
-        const proxiedUrl = __uv$config.prefix + __uv$config.encodeUrl(url)
+        const proxiedUrl = __uv$config.prefix + __uv$config.encodeUrl(url);
         const tabId = `tab-${tabs.length + 1}`;
 
         // Create tab button
@@ -19,6 +19,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         tabButton.classList.add('tab-button');
         tabButton.textContent = `Tab ${tabs.length + 1}`;
         tabButton.dataset.tab = tabId;
+
+        // Create close button for the tab
+        const closeButton = document.createElement('button');
+        closeButton.textContent = 'X';
+        closeButton.classList.add('tab-close-button');
+        closeButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            closeTab(tabId);
+        });
+
+        // Add close button to the tab button
+        tabButton.appendChild(closeButton);
 
         // Create iframe
         const iframe = document.createElement('iframe');
@@ -50,7 +62,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 tab.button.classList.add('active');
                 tab.iframe.style.display = 'block';
                 currentTab = tab;
-                // Corrected this line to use dataset.realsrc
                 addressBar.value = tab.iframe.dataset.realsrc;
             } else {
                 tab.button.classList.remove('active');
@@ -59,7 +70,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-
     function navigateTo(url) {
         if (!url.startsWith('https') && !url.startsWith('ftp') && !url.startsWith('http')) {
             url = `https://${url}`;
@@ -67,7 +77,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (currentTab) {
             currentTab.iframe.src = __uv$config.prefix + __uv$config.encodeUrl(url);
             currentTab.iframe.dataset.realsrc = url;
-            addressBar.value = currentTab.iframe.realsrc;
+            addressBar.value = currentTab.iframe.dataset.realsrc;
+        }
+    }
+
+    function closeTab(tabId) {
+        const tabToClose = tabs.find(tab => tab.id === tabId);
+        if (tabToClose) {
+            tabsBar.removeChild(tabToClose.button);
+            tabsContent.removeChild(tabToClose.iframe);
+            tabs = tabs.filter(tab => tab.id !== tabId);
+            if (currentTab && currentTab.id === tabId) {
+                currentTab = null;
+                if (tabs.length > 0) {
+                    setCurrentTab(tabs[0].id);
+                }
+            }
         }
     }
 
