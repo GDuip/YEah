@@ -97,3 +97,20 @@ iframe {
     left: 0;
     display: none;
 }
+
+.tab-close-button {
+    background: transparent;
+    border: none;
+    color: red;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 8px;
+}
+
+
+.tab-button .tab-close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 12px;
+}
