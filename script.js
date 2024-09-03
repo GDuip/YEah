@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (currentTab) {
             currentTab.iframe.src = __uv$config.prefix + __uv$config.encodeUrl(url);
             currentTab.iframe.setAttribute("realsrc", url);
-            addressBar.value = url;
+            addressBar.value = currentTab.iframe.realsrc;
         }
     }
 
