@@ -31,7 +31,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         tabsContent.appendChild(iframe);
 
         // Save tab info
-        tabs.push({ id: tabId, button: tabButton, iframe: iframe });
+        tabs.push({
+            id: tabId,
+            button: tabButton,
+            iframe: iframe
+        });
 
         // Set as current tab
         setCurrentTab(tabId);
@@ -40,21 +44,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         tabButton.addEventListener('click', () => setCurrentTab(tabId));
     }
 
-function setCurrentTab(tabId) {
-    tabs.forEach(tab => {
-        if (tab.id === tabId) {
-            tab.button.classList.add('active');
-            tab.iframe.style.display = 'block';
-            currentTab = tab;
-            // Corrected this line to use dataset.realsrc
-            alert(tab.iframe.dataset.realsrc);
-            addressBar.value = tab.iframe.dataset.realsrc;
-        } else {
-            tab.button.classList.remove('active');
-            tab.iframe.style.display = 'none';
-        }
-    });
-}
+    function setCurrentTab(tabId) {
+        tabs.forEach(tab => {
+            if (tab.id === tabId) {
+                tab.button.classList.add('active');
+                tab.iframe.style.display = 'block';
+                currentTab = tab;
+                // Corrected this line to use dataset.realsrc
+                addressBar.value = tab.iframe.dataset.realsrc;
+            } else {
+                tab.button.classList.remove('active');
+                tab.iframe.style.display = 'none';
+            }
+        });
+    }
 
 
     function navigateTo(url) {
