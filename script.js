@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Create iframe
         const iframe = document.createElement('iframe');
         iframe.src = proxiedUrl;
+        iframe.setAttribute("realsrc", url);
         iframe.dataset.tab = tabId;
 
         // Add to tabs bar and tabs content
@@ -45,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 tab.button.classList.add('active');
                 tab.iframe.style.display = 'block';
                 currentTab = tab;
-                addressBar.value = tab.iframe.src;
+                addressBar.value = tab.iframe.realsrc;
             } else {
                 tab.button.classList.remove('active');
                 tab.iframe.style.display = 'none';
@@ -59,6 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         if (currentTab) {
             currentTab.iframe.src = __uv$config.prefix + __uv$config.encodeUrl(url);
+            currentTab.iframe.setAttribute("realsrc", url);
             addressBar.value = url;
         }
     }
