@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sleek Browser Interface</title>
+    <title>Sleek Browser with Tabs</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="browser">
+        <div class="tabs-bar">
+            <button id="new-tab-button" class="tab-button">+</button>
+        </div>
         <div class="nav-bar">
             <button id="back-button" class="nav-button">←</button>
             <button id="forward-button" class="nav-button">→</button>
             <input type="text" id="address-bar" placeholder="Enter URL and press Enter">
             <button id="reload-button" class="nav-button">⟳</button>
         </div>
-        <iframe id="iframe-viewer"></iframe>
+        <div class="tabs-content">
+            <iframe id="iframe-viewer"></iframe>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
