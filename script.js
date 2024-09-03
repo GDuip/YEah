@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Create iframe
         const iframe = document.createElement('iframe');
         iframe.src = proxiedUrl;
-        iframe.setAttribute("realsrc", url);
+        iframe.dataset.realsrc = url;
         iframe.dataset.tab = tabId;
 
         // Add to tabs bar and tabs content
@@ -55,12 +55,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function navigateTo(url) {
-        if (!url.startsWith('https')) {
+        if (!url.startsWith('https') && !url.startsWith('ftp') && !url.startsWith('http')) {
             url = `https://${url}`;
         }
         if (currentTab) {
             currentTab.iframe.src = __uv$config.prefix + __uv$config.encodeUrl(url);
-            currentTab.iframe.setAttribute("realsrc", url);
+            currentTab.iframe.dataset.realsrc = url;
             addressBar.value = currentTab.iframe.realsrc;
         }
     }
