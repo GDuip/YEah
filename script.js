@@ -3,42 +3,75 @@ document.addEventListener('DOMContentLoaded', () => {
     const forwardButton = document.getElementById('forward-button');
     const reloadButton = document.getElementById('reload-button');
     const addressBar = document.getElementById('address-bar');
-    const iframeViewer = document.getElementById('iframe-viewer');
+    const newTabButton = document.getElementById('new-tab-button');
+    const tabsBar = document.querySelector('.tabs-bar');
+    const tabsContent = document.querySelector('.tabs-content');
 
-    let historyStack = [];
-    let historyIndex = -1;
+    let tabs = [];
+    let currentTab = null;
+
+    function createTab(url = 'https://example.com') {
+        const tabId = `tab-${tabs.length + 1}`;
+
+        // Create tab button
+        const tabButton = document.createElement('button');
+        tabButton.classList.add('tab-button');
+        tabButton.textContent = `Tab ${tabs.length + 1}`;
+        tabButton.dataset.tab = tabId;
+
+        // Create iframe
+        const iframe = document.createElement('iframe');
+        iframe.src = url;
+        iframe.dataset.tab = tabId;
+
+        // Add to tabs bar and tabs content
+        tabsBar.insertBefore(tabButton, newTabButton);
+        tabsContent.appendChild(iframe);
+
+        // Save tab info
+        tabs.push({ id: tabId, button: tabButton, iframe: iframe });
+
+        // Set as current tab
+        setCurrentTab(tabId);
+
+        // Add event listener to tab button
+        tabButton.addEventListener('click', () => setCurrentTab(tabId));
+    }
+
+    function setCurrentTab(tabId) {
+        tabs.forEach(tab => {
+            if (tab.id === tabId) {
+                tab.button.classList.add('active');
+                tab.iframe.style.display = 'block';
+                currentTab = tab;
+                addressBar.value = tab.iframe.src;
+            } else {
+                tab.button.classList.remove('active');
+                tab.iframe.style.display = 'none';
+            }
+        });
+    }
 
     function navigateTo(url) {
         if (!url.startsWith('http')) {
             url = `http://${url}`;
         }
-        iframeViewer.src = url;
-        if (historyIndex === -1 || historyStack[historyIndex] !== url) {
-            historyStack = historyStack.slice(0, historyIndex + 1);
-            historyStack.push(url);
-            historyIndex++;
+        if (currentTab) {
+            currentTab.iframe.src = url;
+            addressBar.value = url;
         }
-        addressBar.value = url;
     }
 
     backButton.addEventListener('click', () => {
-        if (historyIndex > 0) {
-            historyIndex--;
-            iframeViewer.src = historyStack[historyIndex];
-            addressBar.value = historyStack[historyIndex];
-        }
+        if (currentTab) currentTab.iframe.contentWindow.history.back();
     });
 
     forwardButton.addEventListener('click', () => {
-        if (historyIndex < historyStack.length - 1) {
-            historyIndex++;
-            iframeViewer.src = historyStack[historyIndex];
-            addressBar.value = historyStack[historyIndex];
-        }
+        if (currentTab) currentTab.iframe.contentWindow.history.forward();
     });
 
     reloadButton.addEventListener('click', () => {
-        iframeViewer.src = addressBar.value;
+        if (currentTab) currentTab.iframe.src = currentTab.iframe.src;
     });
 
     addressBar.addEventListener('keyup', (event) => {
@@ -46,4 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
             navigateTo(addressBar.value);
         }
     });
+
+    newTabButton.addEventListener('click', () => createTab());
+
+    // Initialize with one tab
+    createTab();
 });
