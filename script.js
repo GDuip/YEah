@@ -123,8 +123,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 */
-
-
 document.addEventListener('DOMContentLoaded', async () => {
     const backButton = document.getElementById('back-button');
     const forwardButton = document.getElementById('forward-button');
@@ -195,4 +193,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (currentTab) currentTab.iframe.src = currentTab.iframe.src;
     });
 
-    addressBar.addEventListener('
+    addressBar.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+            navigateTo(addressBar.value);
+        }
+    });
+
+    document.querySelector('.chrome-tabs-button--add').addEventListener('click', () => createTab());
+
+    await registerSW();
+    createTab(); // Initialize with one tab
+});
