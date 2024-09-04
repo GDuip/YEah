@@ -87,8 +87,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // Add tab button listener
-    chromeTabsContainer.querySelector('.chrome-tabs-button--add').addEventListener('click', () => createTab());
-
     await registerSW();
 
     // Initialize with one tab
