@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     let tabs = [];
     let currentTab = null;
 
-    function createTab(url = 'https://example.com') {
+    async function createTab(url = 'https://example.com') {
+        await registerSW();
         const proxiedUrl = __uv$config.prefix + __uv$config.encodeUrl(url);
         const tabId = `tab-${tabs.length + 1}`;
 
@@ -88,7 +89,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    function navigateTo(url) {
+    async function navigateTo(url) {
+        await registerSW();
         if (!url.startsWith('https') && !url.startsWith('ftp') && !url.startsWith('http')) {
             url = `https://${url}`;
         }
@@ -119,6 +121,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     chromeTabsContainer.querySelector('.chrome-tabs-button--add').addEventListener('click', () => createTab());
 
-    await registerSW();
     createTab(); // Initialize with one tab
 });
