@@ -9,23 +9,25 @@
 </head>
 <body>
     <div class="browser">
-        <div class="tabs-bar">
-            <button id="new-tab-button" class="tab-button">+</button>
-        </div>
-        <div class="nav-bar">
-            <button id="back-button" class="nav-button">←</button>
-            <button id="forward-button" class="nav-button">→</button>
-            <input type="text" id="address-bar" placeholder="Enter URL and press Enter">
-            <button id="reload-button" class="nav-button">⟳</button>
-        </div>
-        <div class="tabs-content">
-            <!-- Placeholder for iframes, dynamically inserted by JavaScript -->
-        </div>
-        <div class="desc left-margin">
-            <p id="uv-error"></p>
-            <pre id="uv-error-code"></pre>
-        </div>
+    <div class="chrome-tabs">
+        <div class="chrome-tabs-content"></div>
+        <button class="chrome-tabs-button chrome-tabs-button--add"></button>
     </div>
+    <div class="nav-bar">
+        <button id="back-button" class="nav-button">←</button>
+        <button id="forward-button" class="nav-button">→</button>
+        <input type="text" id="address-bar" placeholder="Enter URL and press Enter">
+        <button id="reload-button" class="nav-button">⟳</button>
+    </div>
+    <div class="tabs-content">
+        <!-- Placeholder for iframes, dynamically inserted by JavaScript -->
+    </div>
+    <div class="desc left-margin">
+        <p id="uv-error"></p>
+        <pre id="uv-error-code"></pre>
+    </div>
+</div>
+
     <script src="script.js" defer></script>
     <script src="baremux/bare.js" defer></script>
     <script src="epoxy/index.js" defer></script>
