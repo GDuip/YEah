@@ -97,3 +97,33 @@ iframe {
     left: 0;
     display: none;
 }
+
+.chrome-tabs-button--add {
+    width: 16px;
+    height: 16px;
+    background-color: #4a4a4a;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 5px;
+    position: relative;
+}
+
+.chrome-tabs-button--add:before,
+.chrome-tabs-button--add:after {
+    content: '';
+    position: absolute;
+    background-color: white;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 2px;
+}
+
+.chrome-tabs-button--add:before {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.chrome-tabs-button--add:after {
+    transform: translate(-50%, -50%);
+}
