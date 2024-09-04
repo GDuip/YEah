@@ -1,3 +1,4 @@
+/*
 document.addEventListener('DOMContentLoaded', async () => {
     const backButton = document.getElementById('back-button');
     const forwardButton = document.getElementById('forward-button');
@@ -120,3 +121,78 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Initialize with one tab
     createTab();
 });
+
+*/
+
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const backButton = document.getElementById('back-button');
+    const forwardButton = document.getElementById('forward-button');
+    const reloadButton = document.getElementById('reload-button');
+    const addressBar = document.getElementById('address-bar');
+    const chromeTabs = new ChromeTabs();
+
+    chromeTabs.init(document.querySelector('.chrome-tabs'));
+
+    let tabs = [];
+    let currentTab = null;
+
+    function createTab(url = 'https://example.com') {
+        const proxiedUrl = __uv$config.prefix + __uv$config.encodeUrl(url);
+        const tabId = `tab-${tabs.length + 1}`;
+
+        chromeTabs.addTab({
+            title: `Tab ${tabs.length + 1}`,
+            favicon: '', // You can add a favicon here if desired
+        });
+
+        const iframe = document.createElement('iframe');
+        iframe.src = proxiedUrl;
+        iframe.dataset.realsrc = url;
+        iframe.dataset.tab = tabId;
+        tabsContent.appendChild(iframe);
+
+        tabs.push({
+            id: tabId,
+            iframe: iframe
+        });
+
+        setCurrentTab(tabId);
+    }
+
+    function setCurrentTab(tabId) {
+        tabs.forEach(tab => {
+            if (tab.id === tabId) {
+                tab.iframe.style.display = 'block';
+                currentTab = tab;
+                addressBar.value = tab.iframe.dataset.realsrc;
+            } else {
+                tab.iframe.style.display = 'none';
+            }
+        });
+    }
+
+    function navigateTo(url) {
+        if (!url.startsWith('https') && !url.startsWith('ftp') && !url.startsWith('http')) {
+            url = `https://${url}`;
+        }
+        if (currentTab) {
+            currentTab.iframe.src = __uv$config.prefix + __uv$config.encodeUrl(url);
+            currentTab.iframe.dataset.realsrc = url;
+            addressBar.value = currentTab.iframe.dataset.realsrc;
+        }
+    }
+
+    backButton.addEventListener('click', () => {
+        if (currentTab) currentTab.iframe.contentWindow.history.back();
+    });
+
+    forwardButton.addEventListener('click', () => {
+        if (currentTab) currentTab.iframe.contentWindow.history.forward();
+    });
+
+    reloadButton.addEventListener('click', () => {
+        if (currentTab) currentTab.iframe.src = currentTab.iframe.src;
+    });
+
+    addressBar.addEventListener('
