@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let tabs = [];
     let currentTab = null;
 
-    function createTab(url = 'https://example.com') {
+    self.createTab = (url = 'https://example.com') => {
         const proxiedUrl = __uv$config.prefix + __uv$config.encodeUrl(url);
         const tabId = `tab-${tabs.length + 1}`;
 
