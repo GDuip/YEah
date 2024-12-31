@@ -1,7 +1,8 @@
 
-const connection = new BareMux.BareMuxConnection("/baremux/worker.js")
 
 document.addEventListener('DOMContentLoaded', async () => {
+	const connection = new BareMux.BareMuxConnection("/baremux/worker.js")
+
     const chromeTabsContainer = document.querySelector('.chrome-tabs');
     const chromeTabs = new ChromeTabs();
     chromeTabs.init(chromeTabsContainer);
