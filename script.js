@@ -56,16 +56,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    function navigateTo(url) {
-        if (!url.startsWith('https') && !url.startsWith('ftp') && !url.startsWith('http')) {
+function navigateTo(url) {
+    const isValidUrl = url.startsWith('https://') || url.startsWith('http://') || url.startsWith('ftp://');
+    const searchEngine = "https://google.com/search?q="; // Default search engine
+
+    if (!isValidUrl) {
+        // Check if it's a domain-like string (e.g., "example.com")
+        if (url.includes('.') && !url.includes(' ')) {
             url = `https://${url}`;
-        }
-        if (currentTab) {
-            currentTab.iframe.src = __uv$config.prefix + __uv$config.encodeUrl(url);
-            currentTab.iframe.dataset.realsrc = url;
-            addressBar.value = currentTab.iframe.dataset.realsrc;
+        } else {
+            // Treat as a search query
+            url = `${searchEngine}${encodeURIComponent(url)}`;
         }
     }
+
+    if (currentTab) {
+        currentTab.iframe.src = __uv$config.prefix + __uv$config.encodeUrl(url);
+        currentTab.iframe.dataset.realsrc = url;
+        addressBar.value = currentTab.iframe.dataset.realsrc;
+    }
+}
+
 
     // Navigation buttons
     backButton.addEventListener('click', () => {
