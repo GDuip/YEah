@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     self.createTab = async (url = 'https://example.com') => {
         const proxiedUrl = __uv$config.prefix + __uv$config.encodeUrl(url);
         const tabId = `tab-${tabs.length + 1}`;
+  BareMux.SetTransport("EpxMod.EpoxyClient", { wisp: "wss://wisp.run" });
 
         // Add new tab to ChromeTabs
         chromeTabs.addTab({
@@ -48,7 +49,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     async function setCurrentTab(tabId) {
-  BareMux.SetTransport("EpxMod.EpoxyClient", { wisp: "wss://wisp.run" });
 
         tabs.forEach(tab => {
             if (tab.id === tabId) {
@@ -62,7 +62,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
 async function navigateTo(url) {
-  BareMux.SetTransport("EpxMod.EpoxyClient", { wisp: "wss://wisp.run" });
 
     const isValidUrl = url.startsWith('https://') || url.startsWith('http://') || url.startsWith('ftp://');
     const searchEngine = "https://google.com/search?q="; // Default search engine
