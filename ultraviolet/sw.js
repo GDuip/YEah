@@ -3,7 +3,7 @@ importScripts('/ultraviolet/uv.bundle.js');
 importScripts('/ultraviolet/uv.config.js');
 importScripts('/ultraviolet/uv.sw.js');
 importScripts('/workerware/index.js');
-
+importScripts('/alublocker.js');
 
 const ww = new WorkerWare({
     debug: true,
