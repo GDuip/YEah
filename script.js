@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     self.createTab = async (url = 'https://example.com') => {
         const proxiedUrl = __uv$config.prefix + __uv$config.encodeUrl(url);
         const tabId = `tab-${tabs.length + 1}`;
-  BareMux.SetTransport("EpxMod.EpoxyClient", { wisp: "wss://wisp.run" });
 
         // Add new tab to ChromeTabs
         chromeTabs.addTab({
