@@ -38,13 +38,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         // Set as current tab
-        setCurrentTab(tabId);
+        await setCurrentTab(tabId);
 
         // Event listener for tab click to set current tab
         chromeTabsContainer.querySelector(`[data-tab-id="${tabId}"]`).addEventListener('click', () => setCurrentTab(tabId));
     }
 
-    function setCurrentTab(tabId) {
+    async function setCurrentTab(tabId) {
             if (await connection.getTransport() !== "/epoxy/index.js") {
 		await connection.setTransport("/epoxy/index.js", [{ wisp: "wss://wisp.run" }]);
 	}
@@ -99,7 +99,7 @@ async function navigateTo(url) {
 
     addressBar.addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
-            navigateTo(addressBar.value);
+            await navigateTo(addressBar.value);
         }
     });
 
