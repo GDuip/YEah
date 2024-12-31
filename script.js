@@ -100,7 +100,7 @@ async function navigateTo(url) {
         if (currentTab) currentTab.iframe.src = currentTab.iframe.src;
     });
 
-    addressBar.addEventListener('keyup', (event) => {
+    addressBar.addEventListener('keyup', async (event) => {
         if (event.key === 'Enter') {
             await navigateTo(addressBar.value);
         }
