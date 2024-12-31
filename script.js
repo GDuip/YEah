@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Create iframe
         const iframe = document.createElement('iframe');
         iframe.src = proxiedUrl;
-        iframe.dataset.realsrc = url;
+        iframe.dataset.realsrc = url.replace("https://, "");
         iframe.dataset.tab = tabId;
 
         // Add iframe to tabs content
@@ -72,7 +72,7 @@ function navigateTo(url) {
 
     if (currentTab) {
         currentTab.iframe.src = __uv$config.prefix + __uv$config.encodeUrl(url);
-        currentTab.iframe.dataset.realsrc = url;
+        currentTab.iframe.dataset.realsrc = url.replace("https://, "");
         addressBar.value = currentTab.iframe.dataset.realsrc;
     }
 }
