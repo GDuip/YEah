@@ -45,6 +45,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function setCurrentTab(tabId) {
+            if (await connection.getTransport() !== "/epoxy/index.js") {
+		await connection.setTransport("/epoxy/index.js", [{ wisp: "wss://wisp.run" }]);
+	}
         tabs.forEach(tab => {
             if (tab.id === tabId) {
                 currentTab = tab;
@@ -56,7 +59,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-function navigateTo(url) {
+async function navigateTo(url) {
+    if (await connection.getTransport() !== "/epoxy/index.js") {
+		await connection.setTransport("/epoxy/index.js", [{ wisp: "wss://wisp.run" }]);
+	}
     const isValidUrl = url.startsWith('https://') || url.startsWith('http://') || url.startsWith('ftp://');
     const searchEngine = "https://google.com/search?q="; // Default search engine
 
